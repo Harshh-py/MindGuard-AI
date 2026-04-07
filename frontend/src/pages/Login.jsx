@@ -51,24 +51,24 @@ const Login = () => {
     try {
       if (isLogin) {
         // ---- LOGIN PROCESS ----
-        const res = await axios.post('http://localhost:5000/api/auth/login', { identifier: username, password });
+        const res = await axios.post('https://mindguard-ai-tcfg.onrender.com/api/auth/login', { identifier: username, password });
         localStorage.setItem('token', res.data.token);
         navigate('/dashboard');
       } else {
         // ---- SIGNUP APIS FLOW ----
         if (signupStep === 1) {
           // Hit Send-OTP logic
-          const res = await axios.post('http://localhost:5000/api/auth/send-otp', { username, email });
+          const res = await axios.post('https://mindguard-ai-tcfg.onrender.com/api/auth/send-otp', { username, email });
           setSuccessMsg("OTP Sent! Please check your real email inbox.");
           setSignupStep(2);
         } else if (signupStep === 2) {
           // Verify exact OTP
-          await axios.post('http://localhost:5000/api/auth/verify-otp', { email, otp });
+          await axios.post('https://mindguard-ai-tcfg.onrender.com/api/auth/verify-otp', { email, otp });
           setSuccessMsg("Email Verified! Set up your password.");
           setSignupStep(3);
         } else if (signupStep === 3) {
           // Final Registration
-          const res = await axios.post('http://localhost:5000/api/auth/register', { username, email, otp, password });
+          const res = await axios.post('https://mindguard-ai-tcfg.onrender.com/api/auth/register', { username, email, otp, password });
           localStorage.setItem('token', res.data.token);
           navigate('/dashboard');
         }
